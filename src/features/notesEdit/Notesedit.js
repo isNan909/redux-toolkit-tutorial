@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNotes } from '../notes/notesSlice';
+import { editNotes } from '../notes/notesSlice';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ export const Notesedit = (_props) => {
   const dispatch = useDispatch();
   let history = useHistory();
   const notesDetailId = useSelector((state) => {
-    let notes = state.notes.find((n) => n.id == id);
+    let notes = state.notes.find((n) => n.id === parseInt(id));
     return notes;
   });
 
@@ -20,7 +20,9 @@ export const Notesedit = (_props) => {
   });
 
   useEffect(() => {
+    console.log(notesDetailId);
     setSelectedNote(notesDetailId);
+    // eslint-disable-next-line
   }, []);
 
   const handleOnChange = (key, value) =>
@@ -28,7 +30,7 @@ export const Notesedit = (_props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(addNotes(selectedNote));
+    dispatch(editNotes(selectedNote));
     history.push('/');
   };
 
