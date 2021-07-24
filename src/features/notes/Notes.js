@@ -30,7 +30,9 @@ export function Notes() {
                   <p>{n.subheading || 'no subheading'}</p>
                   <br />
                   <div className="flex">
-                    <span className="mr-3">edit</span>
+                    <span className="mr-3">
+                      <Link to={`/noteEdit/${n.id}`}>edit</Link>
+                    </span>
                     <span
                       className="mr-3"
                       onClick={() => dispatch(deleteNotes(n.id))}

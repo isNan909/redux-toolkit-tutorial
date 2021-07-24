@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+// fake obj { id: 1, heading: 'heaiding', subheading: 'sdf' }
 const initialState = [];
 
 export const notesSlice = createSlice({
@@ -11,6 +12,22 @@ export const notesSlice = createSlice({
     },
     deleteNotes: (state, { payload }) => {
       return state.filter(({ id }) => id !== payload);
+    },
+    editNotes: (state, action) => {
+      state = state.map((notes) => {
+        if (notes.id === action.payload.id) {
+          return {
+            id: action.payload.id,
+            heading: action.payload.heading,
+            subheading: action.payload.subheading,
+          };
+        } else {
+          return {
+            ...notes,
+          };
+        }
+      });
+      return state;
     },
   },
 });
