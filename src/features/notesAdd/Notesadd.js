@@ -1,8 +1,25 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import {addNotes } from '../notes/notesSlice';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNotes, selectNotes } from '../notes/notesSlice';
+import { useHistory } from 'react-router-dom';
 export function Notesadd() {
+  const notesState = useSelector(selectNotes);
+  const [heading, setHeading] = useState('');
+  const [subheading, setSubheading] = useState('');
   const dispatch = useDispatch();
+  let history = useHistory();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    let data = {
+      id: notesState.length + 1,
+      heading: heading,
+      subheading: subheading,
+    };
+    dispatch(addNotes(data));
+    history.push('/');
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -25,6 +42,8 @@ export function Notesadd() {
               required
               className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
               placeholder="Notes heading"
+              value={heading}
+              onChange={(e) => setHeading(e.target.value)}
             />
           </div>
           <div>
@@ -38,6 +57,9 @@ export function Notesadd() {
               className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm"
               rows="3"
               placeholder="Enter some description"
+              required
+              value={subheading}
+              onChange={(e) => setSubheading(e.target.value)}
             ></textarea>
           </div>
 
@@ -45,7 +67,7 @@ export function Notesadd() {
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-              onClick={()=> dispatch(addNotes('note addddd'))}
+              onClick={onSubmit}
             >
               Add my note
             </button>

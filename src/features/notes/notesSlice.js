@@ -9,11 +9,14 @@ export const notesSlice = createSlice({
     addNotes: (state, { payload }) => {
       state.push(payload);
     },
+    deleteNotes: (state, { payload }) => {
+      return state.filter(({ id }) => id !== payload);
+    },
   },
 });
 
 export const selectNotes = (state) => state.notes;
 
-export const { addNotes } = notesSlice.actions;
+export const { addNotes, deleteNotes } = notesSlice.actions;
 
 export default notesSlice.reducer;
