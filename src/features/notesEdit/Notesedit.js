@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editNotes } from '../notes/notesSlice';
-import { useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 export const Notesedit = (_props) => {
   const { id } = useParams();
@@ -20,7 +19,6 @@ export const Notesedit = (_props) => {
   });
 
   useEffect(() => {
-    console.log(notesDetailId);
     setSelectedNote(notesDetailId);
     // eslint-disable-next-line
   }, []);
