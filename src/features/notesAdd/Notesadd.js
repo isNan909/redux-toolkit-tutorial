@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNotes, selectNotes } from '../notes/notesSlice';
 import { useHistory } from 'react-router-dom';
+
+
 export function Notesadd() {
   const notesState = useSelector(selectNotes);
   const [heading, setHeading] = useState('');
